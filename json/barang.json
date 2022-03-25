@@ -1,0 +1,28 @@
+[
+    {
+        "id_barang": "barang1",
+        "id_detail_barang": "detail_barang1",
+        "keterangan": null
+    },
+    {
+        "id_barang": "barang1",
+        "id_detail_barang": "detail_barang2",
+        "keterangan": null
+    },
+    {
+        "id_barang": "barang1",
+        "id_detail_barang": "detail_barang3",
+        "keterangan": null
+    },
+    {
+        "id_barang": "barang2",
+        "id_detail_barang": "detail_barang1",
+        "keterangan": null
+    },
+    {
+        "id_barang": "barang2",
+        "id_detail_barang": "detail_barang2",
+        "keterangan": null
+    }
+]
+  

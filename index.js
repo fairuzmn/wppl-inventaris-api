@@ -1,0 +1,29 @@
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import { MONGODB_URI } from "./constant/services/mongo.js";
+import AuthRoute from "./routes/auth.js";
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors());
+
+app.use("/auth", AuthRoute);
+
+app.get("/", (req, res) => {
+  res.send("it work");
+});
+
+(async () => {
+  try {
+    await mongoose.connect(MONGODB_URI);
+    app.listen(port, function () {
+      console.log(`Listening to Port ${port}`);
+    });
+  } catch (e) {
+    console.log(e);
+  }
+})();

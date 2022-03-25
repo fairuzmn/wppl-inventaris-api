@@ -1,0 +1,17 @@
+[
+    {
+        "id_barang": "barang1",
+        "id_vendor": "vendor1",
+        "nama_barang": "ASUS ROG Strix",
+        "id_rincian": "a",
+        "harga": 1000000
+    },
+    {
+        "id_barang": "barang2",
+        "id_vendor": "vendor2",
+        "nama_barang": "HP Omen",
+        "id_rincian": "a",
+        "harga": 1000000
+    }
+]
+  
