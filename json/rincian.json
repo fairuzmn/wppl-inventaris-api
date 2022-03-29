@@ -1,0 +1,14 @@
+[
+    {
+        "id_rincian": "a",
+        "nama_rincian" : "Aset"
+    },
+    {
+        "id_rincian": "aa",
+        "nama_rincian" : "Elektronik"
+    },
+    {
+        "id_rincian": "ab",
+        "nama_rincian" : "Furniture"
+    }
+]

@@ -1,0 +1,14 @@
+[
+    {
+        "id_vendor": "vendor1",
+        "nama": "ASUS Center"
+    },
+    {
+        "id_vendor": "vendor2",
+        "nama": "IBox"
+    },
+    {
+        "id_vendor": "vendor3",
+        "nama": "Informa"
+    }
+]
