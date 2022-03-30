@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import { MONGODB_URI } from "./constant/services/mongo.js";
 import AuthRoute from "./routes/auth.js";
+import RincianRoute from "./routes/rincian.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/auth", AuthRoute);
+app.use("/rincian", RincianRoute);
 
 app.get("/", (req, res) => {
   res.send("it work");

@@ -3,7 +3,8 @@
  * 200 : success
  * 401 : not autenticated
  * 403 : wrong password
- * 406 : invalid paramter
+ * 404 : no doc available
+ * 406 : invalid parameter
  * 500 : server error
  *
  */
@@ -18,6 +19,14 @@ export const generateResponseError = (res) => {
 
 export const generateResponseInvalidData = (res) => {
   return res.status(406).send({ message: "Invalid Data" });
+};
+
+export const generateResponseInvalidID = (res) => {
+  return res.status(406).send({ message: "Invalid ID" });
+};
+
+export const generateResponseNoChanges = (res) => {
+  res.status(404).send({ message: "No document to changes" });
 };
 
 export const generateFinalResponse = (res, status, responseData) => {

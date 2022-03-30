@@ -2,8 +2,7 @@ import mongoose from "mongoose";
 
 export const CoreBarangModel = mongoose.model(
   "CoreBarang",
-  mongoose.Schema({
-    id_barang: String,
+  new mongoose.Schema({
     id_vendor: String,
     id_rincian: String,
     nama_barang: String,

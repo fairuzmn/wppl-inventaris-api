@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export const UserModel = mongoose.model(
   "User",
-  mongoose.Schema({
+  new mongoose.Schema({
     name: String,
     username: String,
     password: String,
