@@ -5,6 +5,7 @@ import { MONGODB_URI } from "./constant/services/mongo.js";
 import AuthRoute from "./routes/auth.js";
 import RincianRoute from "./routes/rincian.js";
 import VendorRoute from "./routes/vendor.js";
+import CoreBarangRoute from "./routes/core_barang.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,6 +17,7 @@ app.use(cors());
 app.use("/auth", AuthRoute);
 app.use("/rincian", RincianRoute);
 app.use("/vendor", VendorRoute);
+app.use("/core-barang", CoreBarangRoute);
 
 app.get("/", (req, res) => {
   res.send("it work");
