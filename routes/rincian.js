@@ -5,7 +5,7 @@ import {
   deleteRincian,
   updateRincian,
   getRincians,
-  getRincian
+  getRincian,
 } from "../controllers/rincian.js";
 
 const router = express.Router(express.json());
