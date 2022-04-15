@@ -28,11 +28,15 @@ export const createRincian = async (req, res) => {
 
   if (!validateArrData([nama])) return generateResponseInvalidData(res);
 
-  const newRincian = await new RincianModel({
-    nama_rincian: nama,
-  }).save();
+  try {
+    const newRincian = await new RincianModel({
+      nama_rincian: nama,
+    }).save();
 
-  return generateFinalResponse(res, 200, { rincian: newRincian });
+    return generateFinalResponse(res, 200, { rincian: newRincian });
+  } catch (e) {
+    return errorHandlerMongo(res, e);
+  }
 };
 
 export const updateRincian = async (req, res) => {
@@ -42,15 +46,19 @@ export const updateRincian = async (req, res) => {
   if (!validateArrData([id, nama])) return generateResponseInvalidData(res);
   if (!validateMongoID(id)) return generateResponseInvalidID(res);
 
-  const editRincian = await RincianModel.findOneAndUpdate(
-    { _id: id },
-    { nama_rincian: nama },
-    { returnDocument: "after" }
-  );
+  try {
+    const editRincian = await RincianModel.findOneAndUpdate(
+      { _id: id },
+      { nama_rincian: nama },
+      { returnDocument: "after" }
+    );
 
-  if (!editRincian) return generateResponseNoChanges(res);
+    if (!editRincian) return generateResponseNoChanges(res);
 
-  return generateFinalResponse(res, 200, { rincian: editRincian });
+    return generateFinalResponse(res, 200, { rincian: editRincian });
+  } catch (e) {
+    return errorHandlerMongo(res, e);
+  }
 };
 
 export const deleteRincian = async (req, res) => {

@@ -30,12 +30,16 @@ export const createBarang = async (req, res) => {
     return generateResponseInvalidData(res);
   }
 
-  const newBarang = await new BarangModel({
-    id_barang,
-    keterangan,
-  }).save();
+  try {
+    const newBarang = await new BarangModel({
+      id_barang,
+      keterangan,
+    }).save();
 
-  return generateFinalResponse(res, 200, { barang: newBarang });
+    return generateFinalResponse(res, 200, { barang: newBarang });
+  } catch (e) {
+    return errorHandlerMongo(res, e);
+  }
 };
 
 export const updateBarang = async (req, res) => {
@@ -47,15 +51,19 @@ export const updateBarang = async (req, res) => {
   }
   if (!validateMongoID(id)) return generateResponseInvalidID(res);
 
-  const editBarang = await BarangModel.findOneAndUpdate(
-    { _id: id },
-    { id_barang, keterangan },
-    { returnDocument: "after" }
-  );
+  try {
+    const editBarang = await BarangModel.findOneAndUpdate(
+      { _id: id },
+      { id_barang, keterangan },
+      { returnDocument: "after" }
+    );
 
-  if (!editBarang) return generateResponseNoChanges(res);
+    if (!editBarang) return generateResponseNoChanges(res);
 
-  return generateFinalResponse(res, 200, { barang: editBarang });
+    return generateFinalResponse(res, 200, { barang: editBarang });
+  } catch (e) {
+    return errorHandlerMongo(res, e);
+  }
 };
 
 export const deleteBarang = async (req, res) => {

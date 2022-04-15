@@ -28,11 +28,15 @@ export const createVendor = async (req, res) => {
 
   if (!validateArrData([nama])) return generateResponseInvalidData(res);
 
-  const newVendor = await new VendorModel({
-    nama_vendor: nama,
-  }).save();
+  try {
+    const newVendor = await new VendorModel({
+      nama_vendor: nama,
+    }).save();
 
-  return generateFinalResponse(res, 200, { vendor: newVendor });
+    return generateFinalResponse(res, 200, { vendor: newVendor });
+  } catch (e) {
+    return errorHandlerMongo(res, e);
+  }
 };
 
 export const updateVendor = async (req, res) => {
@@ -42,15 +46,19 @@ export const updateVendor = async (req, res) => {
   if (!validateArrData([id, nama])) return generateResponseInvalidData(res);
   if (!validateMongoID(id)) return generateResponseInvalidID(res);
 
-  const editVendor = await VendorModel.findOneAndUpdate(
-    { _id: id },
-    { nama_vendor: nama },
-    { returnDocument: "after" }
-  );
+  try {
+    const editVendor = await VendorModel.findOneAndUpdate(
+      { _id: id },
+      { nama_vendor: nama },
+      { returnDocument: "after" }
+    );
 
-  if (!editVendor) return generateResponseNoChanges(res);
+    if (!editVendor) return generateResponseNoChanges(res);
 
-  return generateFinalResponse(res, 200, { vendor: editVendor });
+    return generateFinalResponse(res, 200, { vendor: editVendor });
+  } catch (e) {
+    return errorHandlerMongo(res, e);
+  }
 };
 
 export const deleteVendor = async (req, res) => {

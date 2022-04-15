@@ -6,7 +6,10 @@ import {
   generateResponseNoChanges,
 } from "../constant/helpers/helpers.response.js";
 import { uploadFile } from "../constant/services/catbox.js";
-import { validateMongoID } from "../constant/services/mongo.js";
+import {
+  errorHandlerMongo,
+  validateMongoID,
+} from "../constant/services/mongo.js";
 import { CoreBarangModel } from "../models/CoreBarang.js";
 
 export const getCoreBarangs = async (req, res) => {
@@ -38,15 +41,19 @@ export const createCoreBarang = async (req, res) => {
     if (urlFile) imgUrl = urlFile;
   }
 
-  const newCoreBarang = await new CoreBarangModel({
-    nama_barang: nama,
-    harga: harga,
-    id_vendor: vendor,
-    id_rincian: rincian,
-    img_path: imgUrl,
-  }).save();
+  try {
+    const newCoreBarang = await new CoreBarangModel({
+      nama_barang: nama,
+      harga: harga,
+      id_vendor: vendor,
+      id_rincian: rincian,
+      img_path: imgUrl,
+    }).save();
 
-  return generateFinalResponse(res, 200, { core_barang: newCoreBarang });
+    return generateFinalResponse(res, 200, { core_barang: newCoreBarang });
+  } catch (e) {
+    return errorHandlerMongo(res, e);
+  }
 };
 
 export const updateCoreBarang = async (req, res) => {
@@ -58,15 +65,24 @@ export const updateCoreBarang = async (req, res) => {
   }
   if (!validateMongoID(id)) return generateResponseInvalidID(res);
 
-  const editCoreBarang = await CoreBarangModel.findOneAndUpdate(
-    { _id: id },
-    { nama_barang: nama, harga: harga, id_vendor: vendor, id_rincian: rincian },
-    { returnDocument: "after" }
-  );
+  try {
+    const editCoreBarang = await CoreBarangModel.findOneAndUpdate(
+      { _id: id },
+      {
+        nama_barang: nama,
+        harga: harga,
+        id_vendor: vendor,
+        id_rincian: rincian,
+      },
+      { returnDocument: "after" }
+    );
 
-  if (!editCoreBarang) return generateResponseNoChanges(res);
+    if (!editCoreBarang) return generateResponseNoChanges(res);
 
-  return generateFinalResponse(res, 200, { core_barang: editCoreBarang });
+    return generateFinalResponse(res, 200, { core_barang: editCoreBarang });
+  } catch (e) {
+    return errorHandlerMongo(res, e);
+  }
 };
 
 export const deleteCoreBarang = async (req, res) => {

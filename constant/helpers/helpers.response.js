@@ -17,8 +17,10 @@ export const generateResponseError = (res) => {
   return res.status(500).send({ message: "Server Error" });
 };
 
-export const generateResponseInvalidData = (res) => {
-  return res.status(406).send({ message: "Invalid Data" });
+export const generateResponseInvalidData = (res, errors) => {
+  let _res = { message: "Invalid Data" };
+  if (errors) _res.errors = errors;
+  return res.status(406).send(_res);
 };
 
 export const generateResponseInvalidID = (res) => {
