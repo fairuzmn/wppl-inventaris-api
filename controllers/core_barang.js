@@ -5,6 +5,7 @@ import {
   generateResponseInvalidID,
   generateResponseNoChanges,
 } from "../constant/helpers/helpers.response.js";
+import { uploadFile } from "../constant/services/catbox.js";
 import { validateMongoID } from "../constant/services/mongo.js";
 import { CoreBarangModel } from "../models/CoreBarang.js";
 
@@ -25,9 +26,16 @@ export const getCoreBarang = async (req, res) => {
 
 export const createCoreBarang = async (req, res) => {
   const { nama, harga, vendor, rincian } = req.body;
+  const file = req.file;
+  let imgUrl = "";
 
   if (!validateArrData([nama, harga, vendor, rincian])) {
     return generateResponseInvalidData(res);
+  }
+
+  if (file) {
+    const urlFile = await uploadFile(file.path);
+    if (urlFile) imgUrl = urlFile;
   }
 
   const newCoreBarang = await new CoreBarangModel({
@@ -35,6 +43,7 @@ export const createCoreBarang = async (req, res) => {
     harga: harga,
     id_vendor: vendor,
     id_rincian: rincian,
+    img_path: imgUrl,
   }).save();
 
   return generateFinalResponse(res, 200, { core_barang: newCoreBarang });

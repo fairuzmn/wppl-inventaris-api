@@ -7,5 +7,6 @@ export const CoreBarangModel = mongoose.model(
     id_rincian: String,
     nama_barang: String,
     harga: Number,
+    img_path: String,
   })
 );

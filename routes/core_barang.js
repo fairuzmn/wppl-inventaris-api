@@ -1,4 +1,5 @@
 import express from "express";
+import { multerUpload } from "../constant/middlewares/multer.js";
 import { authHandler } from "../constant/services/auth.js";
 import {
   createCoreBarang,
@@ -13,7 +14,7 @@ router.use(authHandler);
 
 router.get("/", getCoreBarangs);
 router.get("/:id", getCoreBarang);
-router.post("/", createCoreBarang);
+router.post("/", multerUpload.single("img"), createCoreBarang);
 router.put("/:id", updateCoreBarang);
 router.delete("/:id", deleteCoreBarang);
 
