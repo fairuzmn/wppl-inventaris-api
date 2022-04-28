@@ -8,13 +8,29 @@ import {
 import { uploadFile } from "../constant/services/catbox.js";
 import {
   errorHandlerMongo,
+  validateArrMongoID,
   validateMongoID,
 } from "../constant/services/mongo.js";
 import { CoreBarangModel } from "../models/CoreBarang.js";
+import { RincianModel } from "../models/Rincian.js";
 
 export const getCoreBarangs = async (req, res) => {
   const coreBarangs = await CoreBarangModel.find({});
-  return generateFinalResponse(res, 200, { coreBarangs });
+  let arrResult = [];
+  if (coreBarangs.length > 0) {
+    for await (const coreBarang of coreBarangs) {
+      const validate = await validateArrMongoID(coreBarang.id_rincian);
+      if (validate) {
+        const findRincian = await RincianModel.find({
+          _id: { $in: coreBarang.id_rincian },
+        });
+        arrResult.push({ ...coreBarang["_doc"], rincians: findRincian });
+      } else {
+        arrResult.push({ ...coreBarang["_doc"], rincians: [] });
+      }
+    }
+  }
+  return generateFinalResponse(res, 200, { coreBarangs: arrResult });
 };
 
 export const getCoreBarang = async (req, res) => {
@@ -22,17 +38,28 @@ export const getCoreBarang = async (req, res) => {
 
   if (!validateArrData([id])) return generateResponseInvalidData(res);
   if (!validateMongoID(id)) return generateResponseInvalidID(res);
+  let rincians = [];
 
-  const coreBarangs = await CoreBarangModel.findOne({ _id: id });
-  return generateFinalResponse(res, 200, { coreBarangs });
+  let coreBarangs = await CoreBarangModel.findOne({ _id: id });
+  const validate = await validateArrMongoID(coreBarangs.id_rincian);
+  if (validate) {
+    const id_rincian = coreBarangs.id_rincian;
+    const findRincian = await RincianModel.find({
+      _id: { $in: id_rincian },
+    });
+    rincians = findRincian;
+  }
+  return generateFinalResponse(res, 200, {
+    coreBarang: { ...coreBarangs["_doc"], rincians },
+  });
 };
 
 export const createCoreBarang = async (req, res) => {
-  const { nama, harga, vendor, rincian } = req.body;
+  const { nama, harga, vendor, rincians } = req.body;
   const file = req.file;
   let imgUrl = "";
 
-  if (!validateArrData([nama, harga, vendor, rincian])) {
+  if (!validateArrData([nama, harga, vendor, rincians])) {
     return generateResponseInvalidData(res);
   }
 
@@ -46,7 +73,7 @@ export const createCoreBarang = async (req, res) => {
       nama_barang: nama,
       harga: harga,
       id_vendor: vendor,
-      id_rincian: rincian,
+      id_rincian: rincians,
       img_path: imgUrl,
     }).save();
 
@@ -58,16 +85,16 @@ export const createCoreBarang = async (req, res) => {
 
 export const updateCoreBarang = async (req, res) => {
   const { id } = req.params;
-  const { nama, harga, vendor, rincian } = req.body;
+  const { nama, harga, vendor, rincians } = req.body;
   const file = req.file;
   let dataEdit = {
     nama_barang: nama,
     harga: harga,
     id_vendor: vendor,
-    id_rincian: rincian,
+    id_rincian: rincians,
   };
 
-  if (!validateArrData([id, nama, harga, vendor, rincian])) {
+  if (!validateArrData([id, nama, harga, vendor, rincians])) {
     return generateResponseInvalidData(res);
   }
   if (!validateMongoID(id)) return generateResponseInvalidID(res);

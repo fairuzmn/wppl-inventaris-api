@@ -5,7 +5,7 @@ export const CoreBarangModel = mongoose.model(
   new mongoose.Schema(
     {
       id_vendor: String,
-      id_rincian: String,
+      id_rincian: [String],
       nama_barang: String,
       harga: Number,
       img_path: String,

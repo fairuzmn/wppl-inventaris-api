@@ -21,3 +21,20 @@ export const errorHandlerMongo = (res, error) => {
     return generateResponseError(res);
   }
 };
+
+export const validateArrMongoID = (arr) => {
+  return new Promise(async (resolve, reject) => {
+    if (!Array.isArray(arr) || arr.length == 0) resolve(false);
+    let count = 0;
+    try {
+      for await (const id of arr) {
+        if (!mongoose.isValidObjectId(id)) resolve(false);
+        count++;
+      }
+      console.log(`${count} : ${arr.length}`);
+      resolve(true);
+    } catch (e) {
+      resolve(false);
+    }
+  });
+};
