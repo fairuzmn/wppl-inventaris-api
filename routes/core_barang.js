@@ -15,7 +15,7 @@ router.use(authHandler);
 router.get("/", getCoreBarangs);
 router.get("/:id", getCoreBarang);
 router.post("/", multerUpload.single("img"), createCoreBarang);
-router.put("/:id", updateCoreBarang);
+router.put("/:id", multerUpload.single("img"), updateCoreBarang);
 router.delete("/:id", deleteCoreBarang);
 
 export default router;

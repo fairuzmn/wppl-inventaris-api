@@ -24,7 +24,7 @@ export const getBarang = async (req, res) => {
 };
 
 export const createBarang = async (req, res) => {
-  const { id_barang, keterangan } = req.body;
+  const { id_barang, keterangan, id_ruangan } = req.body;
 
   if (!validateArrData([id_barang, keterangan])) {
     return generateResponseInvalidData(res);
@@ -34,6 +34,7 @@ export const createBarang = async (req, res) => {
     const newBarang = await new BarangModel({
       id_barang,
       keterangan,
+      id_ruangan: id_ruangan ?? null,
     }).save();
 
     return generateFinalResponse(res, 200, { barang: newBarang });
@@ -44,9 +45,9 @@ export const createBarang = async (req, res) => {
 
 export const updateBarang = async (req, res) => {
   const { id } = req.params;
-  const { id_barang, keterangan } = req.body;
+  const { id_barang, keterangan, id_ruangan } = req.body;
 
-  if (!validateArrData([id, id_barang, keterangan])) {
+  if (!validateArrData([id, id_barang, keterangan, id_ruangan])) {
     return generateResponseInvalidData(res);
   }
   if (!validateMongoID(id)) return generateResponseInvalidID(res);
@@ -54,7 +55,7 @@ export const updateBarang = async (req, res) => {
   try {
     const editBarang = await BarangModel.findOneAndUpdate(
       { _id: id },
-      { id_barang, keterangan },
+      { id_barang, keterangan, id_ruangan: id_ruangan ?? null },
       { returnDocument: "after" }
     );
 

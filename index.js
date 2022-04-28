@@ -7,6 +7,7 @@ import RincianRoute from "./routes/rincian.js";
 import VendorRoute from "./routes/vendor.js";
 import CoreBarangRoute from "./routes/core_barang.js";
 import BarangRoute from "./routes/barang.js";
+import RuanganRoute from "./routes/ruangan.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -20,6 +21,9 @@ app.use("/rincian", RincianRoute);
 app.use("/vendor", VendorRoute);
 app.use("/core-barang", CoreBarangRoute);
 app.use("/barang", BarangRoute);
+app.use("/ruangan", RuanganRoute);
+
+app.use((_, res) => res.sendStatus(404));
 
 app.get("/", (req, res) => {
   res.send("it work");

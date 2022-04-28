@@ -1,0 +1,26 @@
+[{
+        "_id": "ruangan1",
+        "nama_ruangan": "Ruang Multimedia",
+        "img_path": "/path/to/ruangan1.jpg",
+        "keterangan": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget euismod nisi. Mauris dignissim imperdiet scelerisque. Ut egestas venenatis urna vel semper. Cras et erat turpis. Nullam sed sagittis est, eget suscipit diam. Suspendisse potenti. In malesuada libero sed consequat dapibus. Donec ultrices felis ultricies ante facilisis, vitae sodales neque posuere."
+    },
+    {
+        "_id": "ruangan2",
+        "nama_ruangan": "Ruang Research & Development",
+        "img_path": "/path/to/ruangan2.jpg",
+        "keterangan": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget euismod nisi. Mauris dignissim imperdiet scelerisque. Ut egestas venenatis urna vel semper. Cras et erat turpis. Nullam sed sagittis est, eget suscipit diam. Suspendisse potenti. In malesuada libero sed consequat dapibus. Donec ultrices felis ultricies ante facilisis, vitae sodales neque posuere."
+    },
+    {
+        "_id": "ruangan3",
+        "nama_ruangan": "Ruang Lobby",
+        "img_path": "/path/to/ruangan3.jpg",
+        "keterangan": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget euismod nisi. Mauris dignissim imperdiet scelerisque. Ut egestas venenatis urna vel semper. Cras et erat turpis. Nullam sed sagittis est, eget suscipit diam. Suspendisse potenti. In malesuada libero sed consequat dapibus. Donec ultrices felis ultricies ante facilisis, vitae sodales neque posuere."
+    },
+    {
+        "_id": "ruangan4",
+        "nama_ruangan": "Ruang Gudang",
+        "img_path": "/path/to/ruangan4.jpg",
+        "keterangan": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget euismod nisi. Mauris dignissim imperdiet scelerisque. Ut egestas venenatis urna vel semper. Cras et erat turpis. Nullam sed sagittis est, eget suscipit diam. Suspendisse potenti. In malesuada libero sed consequat dapibus. Donec ultrices felis ultricies ante facilisis, vitae sodales neque posuere."
+
+    }
+]

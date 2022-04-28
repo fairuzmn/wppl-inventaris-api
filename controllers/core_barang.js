@@ -23,7 +23,7 @@ export const getCoreBarang = async (req, res) => {
   if (!validateArrData([id])) return generateResponseInvalidData(res);
   if (!validateMongoID(id)) return generateResponseInvalidID(res);
 
-  const coreBarangs = await CoreBarangModel.find({});
+  const coreBarangs = await CoreBarangModel.findOne({ _id: id });
   return generateFinalResponse(res, 200, { coreBarangs });
 };
 
@@ -59,21 +59,28 @@ export const createCoreBarang = async (req, res) => {
 export const updateCoreBarang = async (req, res) => {
   const { id } = req.params;
   const { nama, harga, vendor, rincian } = req.body;
+  const file = req.file;
+  let dataEdit = {
+    nama_barang: nama,
+    harga: harga,
+    id_vendor: vendor,
+    id_rincian: rincian,
+  };
 
   if (!validateArrData([id, nama, harga, vendor, rincian])) {
     return generateResponseInvalidData(res);
   }
   if (!validateMongoID(id)) return generateResponseInvalidID(res);
 
+  if (file) {
+    const urlFile = await uploadFile(file.path);
+    if (urlFile) dataEdit = urlFile;
+  }
+
   try {
     const editCoreBarang = await CoreBarangModel.findOneAndUpdate(
       { _id: id },
-      {
-        nama_barang: nama,
-        harga: harga,
-        id_vendor: vendor,
-        id_rincian: rincian,
-      },
+      dataEdit,
       { returnDocument: "after" }
     );
 
