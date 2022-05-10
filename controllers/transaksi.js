@@ -49,7 +49,8 @@ export const updateTransaksi = async (req, res) => {
   const { id } = req.params;
   const { nama, tanggal_pinjam, tanggal_kembali, status_pinjam } = req.body;
 
-  if (!validateArrData([id, nama])) return generateResponseInvalidData(res);
+  if (!validateArrData([nama, tanggal_pinjam, tanggal_kembali, status_pinjam]))
+    return generateResponseInvalidData(res);
   if (!validateMongoID(id)) return generateResponseInvalidID(res);
 
   try {
