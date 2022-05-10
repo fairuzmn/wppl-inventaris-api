@@ -8,6 +8,7 @@ import VendorRoute from "./routes/vendor.js";
 import CoreBarangRoute from "./routes/core_barang.js";
 import BarangRoute from "./routes/barang.js";
 import RuanganRoute from "./routes/ruangan.js";
+import TransaksiRoute from "./routes/transaksi.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -22,6 +23,7 @@ app.use("/vendor", VendorRoute);
 app.use("/core-barang", CoreBarangRoute);
 app.use("/barang", BarangRoute);
 app.use("/ruangan", RuanganRoute);
+app.use("/transaksi", TransaksiRoute);
 
 app.use((_, res) => res.sendStatus(404));
 
