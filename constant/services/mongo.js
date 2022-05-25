@@ -24,7 +24,9 @@ export const errorHandlerMongo = (res, error) => {
 
 export const validateArrMongoID = (arr) => {
   return new Promise(async (resolve, reject) => {
-    if (!Array.isArray(arr) || arr.length == 0) resolve(false);
+    if (arr === undefined || !Array.isArray(arr) || arr.length == 0) {
+      resolve(false);
+    }
     let count = 0;
     try {
       for await (const id of arr) {
