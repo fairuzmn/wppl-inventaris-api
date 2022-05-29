@@ -5,7 +5,7 @@ import {
   generateResponseInvalidID,
   generateResponseNoChanges,
 } from "../constant/helpers/helpers.response.js";
-import { uploadFile } from "../constant/services/catbox.js";
+import { uploadFile } from "../constant/services/cloudinary.js";
 import {
   errorHandlerMongo,
   validateMongoID,

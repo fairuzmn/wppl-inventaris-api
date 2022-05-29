@@ -33,7 +33,6 @@ export const validateArrMongoID = (arr) => {
         if (!mongoose.isValidObjectId(id)) resolve(false);
         count++;
       }
-      console.log(`${count} : ${arr.length}`);
       resolve(true);
     } catch (e) {
       resolve(false);
